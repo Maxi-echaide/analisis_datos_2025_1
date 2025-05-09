@@ -8,6 +8,7 @@ class Dataset(ABC):
 
     @property
     def datos(self):
+        # procesar
         return self.__datos
 
     @datos.setter
@@ -15,12 +16,23 @@ class Dataset(ABC):
         # validaciones
         self.__datos = value
 
+    @property
+    def fuente(self):
+        return self.__fuente
+
     @abstractmethod
     def cargar_datos(self):
         pass
 
     def validar_datos(self):
-        pass
+        if self.datos is None:
+            raise ValueError("Datos no cargados")
+
+        if self.datos.isnull().sum().sum() > 0:
+            print("Datos faltantes detectados.")
+        if self.datos.duplicated().sum() > 0:
+            print("Filas duplicadas detectadas.")
+        return True
 
     def transformar_datos(self):
         pass
