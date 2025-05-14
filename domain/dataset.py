@@ -35,7 +35,14 @@ class Dataset(ABC):
         return True
 
     def transformar_datos(self):
-        pass
+        if self.datos is not None:
+            self.__datos.columns = self.datos.columns.str.lower().str.replace(" ", "_")
+            self.__datos = self.datos.drop_duplicates()
+            for col in self.datos.select_dtypes(include="object").columns:
+                self.__datos[col] = self.datos[col].astype(str).str.strip()
+            print("Transformaciones aplicadas")
+        else:
+            print("No hay datos para transformar.")
 
     def mostrar_resumen(self):
         pass
