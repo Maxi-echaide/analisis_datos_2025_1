@@ -22,7 +22,7 @@ api = DatasetAPI("https://apis.datos.gob.ar/georef/api/provincias")
 api.cargar_datos()
 
 # guardar en base de datos
-db = DataSaver("db/recoleccion.db")
+db = DataSaver()
 db.guardar_dataframe(csv.datos, "w_mean_prod_csv")
 db.guardar_dataframe(excel.datos, "ventas_xlsx")
-db.guardar_dataframe(api.datos, "provincia_api")
+# db.guardar_dataframe(api.datos, "provincia_api")
